@@ -3,7 +3,7 @@ let g:teachmemaster_buffers = []
 
 " Define a global variable for the base URL, allowing the user to change it.
 if !exists("g:teachmemaster_base_url")
-  let g:teachmemaster_base_url = "http://127.0.0.1:11435"
+  let g:teachmemaster_base_url = "http://127.0.0.1:11434"
 endif
 
 function! TeachMe(command)
