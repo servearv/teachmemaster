@@ -15,7 +15,6 @@ function! TeachMe(command)
 
   " Use curl to make the API request and save the output to a file
   let curl_command = 'curl -X POST ' . g:teachmemaster_base_url . '/api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
-  echo curl_command
 
   " Execute the curl command in the shell
   call system(curl_command)
