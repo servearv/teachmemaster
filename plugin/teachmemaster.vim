@@ -1,6 +1,11 @@
 " Store the list of buffers created by TeachMe and AskFollowUp
 let g:teachmemaster_buffers = []
 
+" Define a global variable for the base URL, allowing the user to change it.
+if !exists("g:teachmemaster_base_url")
+  let g:teachmemaster_base_url = "http://127.0.0.1:11435"
+endif
+
 function! TeachMe(command)
   " Construct the JSON payload with stream set to false
   let json_payload = '{"model": "llama2", "prompt": "Explain the following Vim command. Keep the explanation very very short and informative and easy to read.: ' . a:command . '", "stream": false}'
@@ -9,7 +14,8 @@ function! TeachMe(command)
   let output_file = "/tmp/llama_explanation.json"
 
   " Use curl to make the API request and save the output to a file
-  let curl_command = 'curl -X POST http://127.0.0.1:11434 /api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
+  let curl_command = 'curl -X POST ' . g:teachmemaster_base_url . '/api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
+  echo curl_command
 
   " Execute the curl command in the shell
   call system(curl_command)
@@ -21,6 +27,7 @@ function! TeachMe(command)
   " Save the current 'splitright' setting
   let l:original_splitright = &splitright
   set splitright
+
   " Check if the cleaned output file exists and is not empty
   if filereadable(clean_output_file)
     " Open the cleaned output file in a vertical split and add the buffer to the list
@@ -55,7 +62,7 @@ function! AskFollowUp(question)
   let output_file = "/tmp/llama_followup.json"
 
   " Use curl to make the API request and save the output to a file
-  let curl_command = 'curl -X POST http://127.0.0.1:11434/api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
+  let curl_command = 'curl -X POST ' . g:teachmemaster_base_url . '/api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
 
   " Execute the curl command in the shell
   call system(curl_command)
@@ -96,6 +103,7 @@ function! AskFollowUp(question)
   setlocal textwidth=80
   setlocal wrap
 endfunction
+
 
 function! CloseTeachMeBuffers()
   " Loop through the list of stored buffer numbers and close them
