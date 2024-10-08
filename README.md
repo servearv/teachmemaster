@@ -14,7 +14,7 @@
     - macOS: `brew install jq`
     - Linux: `sudo apt-get install jq`
 - A running instance of the `llama2` model server.
-  - The server should be accessible at `http://127.0.0.1:11435` and must support the `/api/generate` endpoint with `stream` set to `false`.
+  - The server should be accessible at `http://127.0.0.1:11434` and must support the `/api/generate` endpoint with `stream` set to `false`.
 
 ## Installation
 ### Using Vim Plug

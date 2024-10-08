@@ -9,7 +9,7 @@ function! TeachMe(command)
   let output_file = "/tmp/llama_explanation.json"
 
   " Use curl to make the API request and save the output to a file
-  let curl_command = 'curl -X POST http://127.0.0.1:11435/api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
+  let curl_command = 'curl -X POST http://127.0.0.1:11434 /api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
 
   " Execute the curl command in the shell
   call system(curl_command)
@@ -55,7 +55,7 @@ function! AskFollowUp(question)
   let output_file = "/tmp/llama_followup.json"
 
   " Use curl to make the API request and save the output to a file
-  let curl_command = 'curl -X POST http://127.0.0.1:11435/api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
+  let curl_command = 'curl -X POST http://127.0.0.1:11434/api/generate -H "Content-Type: application/json" -d ' . shellescape(json_payload) . ' -o ' . output_file
 
   " Execute the curl command in the shell
   call system(curl_command)
